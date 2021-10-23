@@ -23,22 +23,28 @@ export class LoginComponent implements OnInit {
   });
 
   submit(): void {
-    /**
-     * if (this.form.valid) {
+    if (this.form.valid) {
       const user = new User();
-      user.correo = this.form.value.email;
-      //user.password = sha256(this.form.value.password);
-      user.contrasena = this.form.value.password;
+      user.email = this.form.value.email;
+      user.password = sha256(this.form.value.password);
       this.LoginService.Login(user).subscribe(resp => {
         console.log("=>", resp)
-        //console.log(resp.redirect)
-        this.router.navigateByUrl('/'+resp.redirect);
       },err =>{
         console.log("resp error", err)
       });
     }
-     * 
-     */
+  }
+  registro():void{
+    if (this.form.valid) {
+      const user = new User();
+      user.email = this.form.value.email;
+      user.password = sha256(this.form.value.password);
+      this.LoginService.Registro(user).subscribe(resp => {
+        console.log("=>", resp)
+      },err =>{
+        console.log("resp error", err)
+      });
     
+    }
   }
 }

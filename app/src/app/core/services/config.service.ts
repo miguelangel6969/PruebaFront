@@ -16,6 +16,6 @@ export class ConfigService {
   constructor() {
   }
 
-  //base = environment.apiEndpoint;
+  base = environment.apiEndpoint;
 
 }

@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../models/user';
 import { Usuarios } from '../models/usuarios';
+import { User } from '../models/user';
 import { environment } from '../../../environments/environment'
 import { ConfigService } from './config.service';
 import { map } from 'rxjs/operators';
@@ -13,15 +13,18 @@ import { map } from 'rxjs/operators';
 export class UserService {
   constructor(private http : HttpClient , private cs : ConfigService) { }
 
-  /*
-Users():Observable<Usuarios[]>{
-    return this.http.get<Usuarios[]>(`${this.cs.base}users`,this.cs.httpOptions);
+  
+  Users():Observable<User[]>{
+      return this.http.get<User[]>(`${this.cs.base}list`,this.cs.httpOptions);
   }
   
   Login(user: User): Observable<any> {
-    return this.http.post(`${this.cs.base}users/login`, user,this.cs.httpOptions)
+    return this.http.post(`${this.cs.base}login`, user,this.cs.httpOptions)
   }
-  **/
+
+  Registro(user: User): Observable<any> {
+    return this.http.post(`${this.cs.base}ins`, user,this.cs.httpOptions)
+  }
   
 }
 
