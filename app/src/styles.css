@@ -1,1 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.content-login {
+  width: 450px;
+  height: 550px;
+  background-color: #0f8eb7;
+  border-radius: 10px;
+  border-color: black;
+}
+
+.form-group {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  background-size: cover;
+  /*background-image: url("assets/images/fondo.jpg");**/
+  float: left;
+  background-color: #2196f3;
+}
+.content-image {
+  height: 100%;
+  width: 40%;
+  float: right;
+  background-color: darkblue;
+}
+
+.img-login {
+  width: 100%;
+  height: 100%;
+  object-fit: none;
+}
+
+.table {
+  width: 100%;
+  height: 100%;
+  margin: 50px;
+}
+.table-users {
+  width: 90%;
+}
