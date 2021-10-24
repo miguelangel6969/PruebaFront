@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     password: ['', Validators.required]
   });
 
-  submit(): void {
+  submit (): void {
     if (this.form.valid) {
       const user = new User();
       user.email = this.form.value.email;
@@ -31,8 +31,12 @@ export class LoginComponent implements OnInit {
       this.LoginService.Login(user).subscribe(resp => {
         localStorage.setItem("idLog",resp.id);
         localStorage.setItem("emailLog",this.form.value.email);
-        console.log(localStorage.getItem("emailLog"));
-        this.router.navigateByUrl('/forms/formularios/list');
+        console.log(resp)
+        if (resp.access === true) {
+          this.router.navigateByUrl('/forms/formularios/list');
+        }else{
+          console.log("No estas registrado")
+        }
       },err =>{
         console.log("resp error", err)
       });

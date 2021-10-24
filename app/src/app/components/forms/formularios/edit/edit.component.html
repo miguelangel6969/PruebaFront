@@ -23,8 +23,11 @@
           <input type="text" formControlName="comentarios" matInput />
         </mat-form-field>
       </div>
-      <div style="width: 100%; text-align: center">
-        <button type="submit" color="primary" mat-flat-button>Ingresar</button>
+      <div *ngIf="!eliminar" style="width: 100%; text-align: center">
+        <button type="submit" color="primary" mat-flat-button>Registrar</button>
+      </div>
+      <div *ngIf="eliminar" style="width: 100%; text-align: center">
+        <button type="submit" color="warn" mat-flat-button>Eliminar</button>
       </div>
     </mat-card>
   </form>

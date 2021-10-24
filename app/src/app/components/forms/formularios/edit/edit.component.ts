@@ -16,6 +16,10 @@ export class EditComponent implements OnInit {
   Fecha = "";
   delete : boolean = false;
   id : any;
+  formul !: Formulario;
+  eliminar = false;
+  add = true;
+
   form: FormGroup = this.fb.group({
     comentarios: ['', Validators.required],
     numDoc: ['', Validators.required],
@@ -23,9 +27,17 @@ export class EditComponent implements OnInit {
   });
   constructor(private svForms : FormsService,private actRoute: ActivatedRoute,private fb: FormBuilder, private svMarcas : MarcaService , private svFormularios : FormsService, private router: Router) { 
     this.id = this.actRoute.snapshot.params.id;
-    if (this.id != null) {
-      this.Delete(this.id);
-    }
+    this.svForms.Forms().subscribe(resp => {  
+      resp.forEach(element => {
+        if (element.id == this.id) {
+          this.formul = element;
+          this.eliminar = true;
+          this.setInitForm();
+        }
+      });
+    },err =>{
+      console.log("resp error", err)
+    });
   }
 
   ngOnInit(): void {
@@ -37,30 +49,46 @@ export class EditComponent implements OnInit {
     });
   }
   submit():void {
-    if (this.form.valid) {
-      const formu = new Formulario();
-      let date: Date = new Date();
-      console.log(date)
-      formu.fecha =String(date);
-      formu.num_documento = this.form.value.numDoc;
-      formu.comentarios = this.form.value.comentarios;
-      formu.id_marca = this.form.value.marca;
-      formu.id_login = Number(localStorage.getItem("idLog"));
-      formu.email = String(localStorage.getItem("emailLog"));
-      
-      this.svFormularios.Registro(formu).subscribe(resp => {
-        this.router.navigateByUrl("/forms/formularios/list");
-      },err =>{
-        console.log("resp error", err)
-      });
+    if(!this.eliminar){
+      if (this.form.valid) {
+        const formu = new Formulario();
+        let date: Date = new Date();
+        console.log(date)
+        let cadena = String(date);
+        formu.fecha = cadena.substr(0,24)
+        formu.num_documento = this.form.value.numDoc;
+        formu.comentarios = this.form.value.comentarios;
+        formu.id_marca = this.form.value.marca;
+        formu.id_login = Number(localStorage.getItem("idLog"));
+        formu.email = String(localStorage.getItem("emailLog"));
+        
+        this.svFormularios.Registro(formu).subscribe(resp => {
+          this.router.navigateByUrl("/forms/formularios/list");
+        },err =>{
+          console.log("resp error", err)
+        });
+      }
+    }else if(this.eliminar){
+      this.Delete(this.id);
     }
   }
+  
   Delete(id : any):void {
     this.svForms.delete(id).subscribe(resp => {
       this.router.navigateByUrl("/forms/formularios/list");
     },err =>{
       console.log("resp error", err)
     });
+  }
+
+  get fc() {
+    return this.form.controls;
+  }
+
+  setInitForm() {
+    this.fc.comentarios.setValue(this.formul.comentarios);
+    this.fc.numDoc.setValue(this.formul.num_documento);
+    this.fc.marca.setValue(this.formul.id_marca);
   }
 }
 
