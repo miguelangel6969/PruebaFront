@@ -18,12 +18,11 @@ export class EditComponent implements OnInit {
   id : any;
   formul !: Formulario;
   eliminar = false;
-  add = true;
 
   form: FormGroup = this.fb.group({
-    comentarios: ['', Validators.required],
-    numDoc: ['', Validators.required],
-    marca: ['', Validators.required]
+    comentarios: ["", Validators.required],
+    numDoc: ["", Validators.required],
+    marca: ["", Validators.required]
   });
   constructor(private svForms : FormsService,private actRoute: ActivatedRoute,private fb: FormBuilder, private svMarcas : MarcaService , private svFormularios : FormsService, private router: Router) { 
     this.id = this.actRoute.snapshot.params.id;
@@ -53,7 +52,6 @@ export class EditComponent implements OnInit {
       if (this.form.valid) {
         const formu = new Formulario();
         let date: Date = new Date();
-        console.log(date)
         let cadena = String(date);
         formu.fecha = cadena.substr(0,24)
         formu.num_documento = this.form.value.numDoc;
@@ -67,6 +65,8 @@ export class EditComponent implements OnInit {
         },err =>{
           console.log("resp error", err)
         });
+      }else{
+        console.log("Digite bien los datos")
       }
     }else if(this.eliminar){
       this.Delete(this.id);

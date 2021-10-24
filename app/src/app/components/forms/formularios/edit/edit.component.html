@@ -4,7 +4,12 @@
       <div>
         <mat-form-field>
           <mat-label>numero documento</mat-label>
-          <input type="text" formControlName="numDoc" matInput />
+          <input
+            type="text"
+            formControlName="numDoc"
+            matInput
+            onkeypress="return ((event.charCode >= 48 && event.charCode <= 57))"
+          />
         </mat-form-field>
       </div>
       <div>

@@ -24,6 +24,10 @@ export class UserService {
   Registro(user: User): Observable<any> {
     return this.http.post(`${this.cs.base}ins`, user,this.cs.httpOptions)
   }
+
+  ban (email : any):Observable<any>{
+    return this.http.post(`${this.cs.base}ban`,email,this.cs.httpOptions)
+  }
   
 }
 

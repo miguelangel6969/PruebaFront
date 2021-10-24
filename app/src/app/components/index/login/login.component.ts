@@ -13,7 +13,14 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private fb: FormBuilder , private LoginService : UserService , private router: Router) { }
+  expireEmail = ["","",""];
+  contExpire = 0;
+  constructor(private fb: FormBuilder , private LoginService : UserService , private router: Router) { 
+    this.expireEmail[0]="";
+    this.expireEmail[1]="";
+    this.expireEmail[2]="";
+    this.contExpire = 0;
+  }
 
   ngOnInit(): void {
   }
@@ -33,8 +40,10 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("emailLog",this.form.value.email);
         console.log(resp)
         if (resp.access === true) {
+          this.contExpire = 0;
           this.router.navigateByUrl('/forms/formularios/list');
         }else{
+          this.ban(this.form.value.email);
           console.log("No estas registrado")
         }
       },err =>{
@@ -53,7 +62,37 @@ export class LoginComponent implements OnInit {
       },err =>{
         console.log("resp error", err)
       });
-    
+    }
+  }
+
+  ban(email : any):void{
+    if (this.contExpire == 3) {
+      if (this.expireEmail[0] == this.expireEmail[1] && this.expireEmail[0] == this.expireEmail[2]) {
+        console.log("este usuario sera bloqueado");
+        this.expireEmail[0]="";
+        this.expireEmail[1]="";
+        this.expireEmail[2]="";
+        this.contExpire = 0;
+        this.LoginService.ban(email).subscribe(resp => {
+        },err =>{
+          console.log("resp error", err)
+        });
+      }
+    }else{
+      this.expireEmail[this.contExpire] = email;
+      this.contExpire++;
+      if (this.expireEmail[0] == this.expireEmail[1] && this.expireEmail[0] == this.expireEmail[2]) {
+        console.log("este usuario sera bloqueado");
+        this.expireEmail[0]="";
+        this.expireEmail[1]="";
+        this.expireEmail[2]="";
+        this.contExpire = 0;
+        this.LoginService.ban(email).subscribe(resp => {
+        },err =>{
+          console.log("resp error", err)
+        });
+      }
     }
   }
 }
+
