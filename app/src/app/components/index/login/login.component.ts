@@ -1,3 +1,4 @@
+//import { GlobalsUser } from './../../../core/globals/globalsUser';
 import { sha256 } from 'js-sha256';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -12,7 +13,7 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor( private fb: FormBuilder , private LoginService : UserService , private router: Router) { }
+  constructor(private fb: FormBuilder , private LoginService : UserService , private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -28,12 +29,16 @@ export class LoginComponent implements OnInit {
       user.email = this.form.value.email;
       user.password = sha256(this.form.value.password);
       this.LoginService.Login(user).subscribe(resp => {
-        console.log("=>", resp)
+        localStorage.setItem("idLog",resp.id);
+        localStorage.setItem("emailLog",this.form.value.email);
+        console.log(localStorage.getItem("emailLog"));
+        this.router.navigateByUrl('/forms/formularios/list');
       },err =>{
         console.log("resp error", err)
       });
     }
   }
+
   registro():void{
     if (this.form.valid) {
       const user = new User();

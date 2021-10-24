@@ -1,0 +1,31 @@
+<div class="form-group2">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-card class="mat-elevation-z8">
+      <div>
+        <mat-form-field>
+          <mat-label>numero documento</mat-label>
+          <input type="text" formControlName="numDoc" matInput />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Marca</mat-label>
+          <mat-select formControlName="marca">
+            <mat-option *ngFor="let marca of marcas" [value]="marca.id">{{
+              marca.nombre
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Comentarios</mat-label>
+          <input type="text" formControlName="comentarios" matInput />
+        </mat-form-field>
+      </div>
+      <div style="width: 100%; text-align: center">
+        <button type="submit" color="primary" mat-flat-button>Ingresar</button>
+      </div>
+    </mat-card>
+  </form>
+</div>

@@ -10,6 +10,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./components/index/index.module').then(m => m.IndexModule)
+  },
+  { 
+    path: 'forms', 
+    loadChildren: () => import('./components/forms/forms.module').then(m => m.FormsModule)
   }
 ];
 @NgModule({

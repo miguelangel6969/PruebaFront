@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Usuarios } from '../models/usuarios';
 import { User } from '../models/user';
 import { environment } from '../../../environments/environment'
 import { ConfigService } from './config.service';
