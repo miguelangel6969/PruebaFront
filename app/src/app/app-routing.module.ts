@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+import { Guard } from './core/guards/guard.guard';
 const routes: Routes = [
   {
     path: '',
@@ -12,8 +12,10 @@ const routes: Routes = [
     loadChildren: () => import('./components/index/index.module').then(m => m.IndexModule)
   },
   { 
-    path: 'forms', 
-    loadChildren: () => import('./components/forms/forms.module').then(m => m.FormsModule)
+    canActivate: [Guard],
+    canActivateChild: [Guard],
+    path: 'formularios', 
+    loadChildren: () => import('./components/formularios/fomularios.module').then(m => m.FormulariosModule)
   }
 ];
 @NgModule({

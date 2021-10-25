@@ -18,17 +18,36 @@ export class UserService {
   }
   
   Login(user: User): Observable<any> {
-    return this.http.post(`${this.cs.base}login`, user,this.cs.httpOptions)
+    return this.http.post(`${this.cs.base}login`,user,this.cs.httpOptions).pipe(
+      map((resp:any)=>{
+        if(resp.access){
+          localStorage.clear();
+          localStorage.setItem('token',resp.access);
+          return resp;
+        }
+      }))
   }
 
   Registro(user: User): Observable<any> {
     return this.http.post(`${this.cs.base}ins`, user,this.cs.httpOptions)
   }
 
-  ban (email : any):Observable<any>{
-    return this.http.post(`${this.cs.base}ban`,email,this.cs.httpOptions)
+  ban (user : User):Observable<any>{
+    return this.http.post(`${this.cs.base}ban`,user,this.cs.httpOptions)
   }
-  
+
+  Auth(id: any): Observable<any> {
+    return this.http.get<any>(`${this.cs.base}auth/` +id,this.cs.httpOptions);
+  } 
+
+  isAuthenticate():boolean{
+    const token = localStorage.getItem('token');
+    if(token!=null && token!=''){
+      return true;
+    }else{
+      return false
+    }
+  }
 }
 
  

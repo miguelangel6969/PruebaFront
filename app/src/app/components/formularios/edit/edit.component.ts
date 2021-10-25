@@ -61,7 +61,7 @@ export class EditComponent implements OnInit {
         formu.email = String(localStorage.getItem("emailLog"));
         
         this.svFormularios.Registro(formu).subscribe(resp => {
-          this.router.navigateByUrl("/forms/formularios/list");
+          this.router.navigateByUrl("/formularios/list");
         },err =>{
           console.log("resp error", err)
         });
@@ -75,7 +75,7 @@ export class EditComponent implements OnInit {
   
   Delete(id : any):void {
     this.svForms.delete(id).subscribe(resp => {
-      this.router.navigateByUrl("/forms/formularios/list");
+      this.router.navigateByUrl("/formularios/list");
     },err =>{
       console.log("resp error", err)
     });

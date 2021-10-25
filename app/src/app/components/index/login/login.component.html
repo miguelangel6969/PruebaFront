@@ -1,5 +1,5 @@
 <div class="form-group">
-  <form [formGroup]="form" (ngSubmit)="submit()">
+  <form *ngIf="ins" [formGroup]="form" (ngSubmit)="submit()">
     <mat-card class="mat-elevation-z8">
       <div>
         <mat-form-field>
@@ -9,12 +9,31 @@
       </div>
       <div>
         <mat-form-field>
-          <mat-label>Contraseña</mat-label>
+          <mat-label>Contraseña*</mat-label>
           <input type="password" formControlName="password" matInput />
         </mat-form-field>
       </div>
       <div style="width: 100%; text-align: center">
         <button type="submit" color="primary" mat-flat-button>Ingresar</button>
+      </div>
+    </mat-card>
+  </form>
+  <form *ngIf="!ins" [formGroup]="form" (ngSubmit)="registro()">
+    <mat-card class="mat-elevation-z8">
+      <div>
+        <mat-form-field>
+          <mat-label>Correo Electronico*</mat-label>
+          <input type="email" formControlName="email" matInput />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Contraseña*</mat-label>
+          <input type="password" formControlName="password" matInput />
+        </mat-form-field>
+      </div>
+      <div style="width: 100%; text-align: center">
+        <button type="submit" color="primary" mat-flat-button>Registrar</button>
       </div>
     </mat-card>
   </form>

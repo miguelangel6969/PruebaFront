@@ -5,6 +5,8 @@
         <mat-form-field>
           <mat-label>numero documento</mat-label>
           <input
+            maxlength="12"
+            min="9"
             type="text"
             formControlName="numDoc"
             matInput
@@ -25,7 +27,12 @@
       <div>
         <mat-form-field>
           <mat-label>Comentarios</mat-label>
-          <input type="text" formControlName="comentarios" matInput />
+          <input
+            type="text"
+            maxlength="450"
+            formControlName="comentarios"
+            matInput
+          />
         </mat-form-field>
       </div>
       <div *ngIf="!eliminar" style="width: 100%; text-align: center">
@@ -33,6 +40,26 @@
       </div>
       <div *ngIf="eliminar" style="width: 100%; text-align: center">
         <button type="submit" color="warn" mat-flat-button>Eliminar</button>
+      </div>
+      <div style="width: 100%; text-align: center; margin-top: 1em">
+        <button
+          *ngIf="eliminar"
+          type="button"
+          [routerLink]="['../../', 'list']"
+          color="primary"
+          mat-flat-button
+        >
+          Volver
+        </button>
+        <button
+          *ngIf="!eliminar"
+          type="button"
+          [routerLink]="['../', 'list']"
+          color="primary"
+          mat-flat-button
+        >
+          Volver
+        </button>
       </div>
     </mat-card>
   </form>
