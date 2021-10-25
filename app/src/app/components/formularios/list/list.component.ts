@@ -17,6 +17,10 @@ export class ListComponent implements OnInit {
   formulario :any  = [];
   marca !: Marcas [] ;
   constructor(private svMarcas : MarcaService ,private svForms : FormsService,private actRoute: ActivatedRoute, private router: Router ) { 
+    
+  }
+
+  ngOnInit(): void {
     this.svForms.Forms().subscribe(resp => {  
       this.dataSource.data = resp;
       this.svMarcas.Marcas().subscribe(resp => {
@@ -33,10 +37,6 @@ export class ListComponent implements OnInit {
     },err =>{
       console.log("resp error", err)
     });
-  }
-
-  ngOnInit(): void {
-    
   }
   
   

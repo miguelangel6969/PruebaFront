@@ -34,6 +34,6 @@ export class AppComponent {
   }
 
   setTimeout() {
-    this.userActivity = setTimeout(() => this.userInactive.next(undefined), 6000);
+    this.userActivity = setTimeout(() => this.userInactive.next(undefined), 60000);
   }
 }
