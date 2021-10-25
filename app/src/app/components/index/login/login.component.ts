@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
   contExpire = 0;
   ins = false;
   emailcorret :boolean = true;
+
+    
   constructor(private fb: FormBuilder , private LoginService : UserService , private router: Router) { 
     this.expireEmail[0]="";
     this.expireEmail[1]="";
@@ -36,8 +38,7 @@ export class LoginComponent implements OnInit {
     this.ins = !this.ins;
   }
   submit (): void {
-    this.validatess();
-    if (this.form.valid && this.emailcorret) {
+    if (this.form.valid ) {
       const user = new User();
       user.email = this.form.value.email;
       user.password = sha256(this.form.value.password);
@@ -79,20 +80,31 @@ export class LoginComponent implements OnInit {
       })
     }
   }
-  validatess():void{
-    let letters: string = this.form.value.email;
-    this.emailcorret = letters.includes('@');
-  }
+  
+  
 
   registro():void{
-    this.validatess();
-    if (this.form.valid && this.emailcorret) {
+    if (this.form.valid ) {
       const user = new User();
       user.email = this.form.value.email;
       user.password = sha256(this.form.value.password);
       this.LoginService.Registro(user).subscribe(resp => {
-      },err =>{
-        console.log("resp error", err)
+        Swal.fire({
+          title: 'Registro exitoso',
+          icon: 'success',
+          text: "Usuario registrado",
+          showConfirmButton: true,
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'ok'
+        })
+      },err =>{Swal.fire({
+        title: 'Registro no exitoso',
+        icon: 'info',
+        text: "Usuario no registrado",
+        showConfirmButton: true,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'ok'
+      })
       });
     }else{
       Swal.fire({
