@@ -4,7 +4,12 @@
       <div>
         <mat-form-field>
           <mat-label>Correo Electronico*</mat-label>
-          <input type="email" formControlName="email" matInput />
+          <input
+            placeholder="micorreo@ejemplo.com"
+            type="email"
+            formControlName="email"
+            matInput
+          />
         </mat-form-field>
       </div>
       <div>
@@ -23,7 +28,12 @@
       <div>
         <mat-form-field>
           <mat-label>Correo Electronico*</mat-label>
-          <input type="email" formControlName="email" matInput />
+          <input
+            placeholder="micorreo@ejemplo.com"
+            type="email"
+            formControlName="email"
+            matInput
+          />
         </mat-form-field>
       </div>
       <div>
@@ -37,6 +47,11 @@
       </div>
     </mat-card>
   </form>
+  <div style="width: 100%; text-align: center; margin: 2em">
+    <button (mouseup)="plusClick()" color="primary" mat-flat-button>
+      ¿Registrar? - ¿Iniciar sesion?
+    </button>
+  </div>
 </div>
 <div class="content-image">
   <img src="../../../../assets/images/fondo.jpg" class="img-login" />

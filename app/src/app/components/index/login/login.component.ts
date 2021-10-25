@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   expireEmail = ["","",""];
   contExpire = 0;
-  ins = true;
+  ins = false;
+  emailcorret :boolean = true;
   constructor(private fb: FormBuilder , private LoginService : UserService , private router: Router) { 
     this.expireEmail[0]="";
     this.expireEmail[1]="";
@@ -31,8 +32,12 @@ export class LoginComponent implements OnInit {
     password: ['', Validators.required]
   });
 
+  plusClick():void{
+    this.ins = !this.ins;
+  }
   submit (): void {
-    if (this.form.valid && this.validate) {
+    this.validatess();
+    if (this.form.valid && this.emailcorret) {
       const user = new User();
       user.email = this.form.value.email;
       user.password = sha256(this.form.value.password);
@@ -63,16 +68,25 @@ export class LoginComponent implements OnInit {
         })
         console.log("resp error", err)
       });
+    }else{
+      Swal.fire({
+        title: 'registro fallido',
+        icon: 'warning',
+        text: "Los datos no son validos",
+        showConfirmButton: true,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Volver a intentar'
+      })
     }
   }
-  validate():boolean{
-    let email = this.form.value.email;
-    console.log("esto es ============== >" , email.includes('@'))
-    return email.includes('@');
+  validatess():void{
+    let letters: string = this.form.value.email;
+    this.emailcorret = letters.includes('@');
   }
 
   registro():void{
-    if (this.form.valid && this.validate) {
+    this.validatess();
+    if (this.form.valid && this.emailcorret) {
       const user = new User();
       user.email = this.form.value.email;
       user.password = sha256(this.form.value.password);
@@ -80,8 +94,18 @@ export class LoginComponent implements OnInit {
       },err =>{
         console.log("resp error", err)
       });
+    }else{
+      Swal.fire({
+        title: 'registro fallido',
+        icon: 'warning',
+        text: "Los datos no son validos",
+        showConfirmButton: true,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Volver a intentar'
+      })
     }
   }
+
 
   ban(UserBan : User) : void{
     if (this.contExpire == 3) {
